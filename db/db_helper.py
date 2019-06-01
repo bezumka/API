@@ -17,13 +17,19 @@ class pySql:
         results = [field[1:] for field in self.cursor.fetchall()]
         return results
 
+    def get_column_names(self, query):
+        self.cursor.execute(query)
+        column_names = [column[0] for column in self.cursor.description]
+        return column_names
+
     def insert_data_to_db(self, table, columns, values):
         try:
             self.cursor.execute(
-                "INSERT INTO {0} ({1}) VALUES ('{2}')".format(table, ", ".join(columns), "', '".join(values)))
+                'INSERT INTO {0} ({1}) VALUES (\'{2}\')'.format(table, ", ".join(columns), "', '".join(values)))
             self.db.commit()
             return self.codes["code_1"]
         except pymysql.IntegrityError:
             return self.codes["code_2"]
+
 
 
