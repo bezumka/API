@@ -10,4 +10,5 @@ db_list = {
 codes = {
         'code_1': "Success Code: The HTTP 200 OK",
         'code_2': "Error Code: Following users already exists in database",
+        'code_3': "Column count does not match value count at row"
 }

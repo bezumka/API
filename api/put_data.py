@@ -1,7 +1,8 @@
 import ast
-
+import pymysql
 from flask import Blueprint, request, abort
 from db.db_helper import pySql
+from db.config import codes
 
 bp_put = Blueprint('put_data', __name__, url_prefix='/')
 
@@ -19,10 +20,12 @@ def create_account():
     values = list(to_dict.values())
     table = 'users'
     columns = ['login', 'password', 'first_name', 'last_name']
-
-    if all(x in columns for x in list(to_dict.keys())):
-        results = obj.insert_data_to_db(table, columns, values)
-    else:
-        results = "There is no mandatory field(s): " + str(set(columns) - set(to_dict.keys()))
+    try:
+        if all(x in columns for x in list(to_dict.keys())):
+            results = obj.insert_data_to_db(table, columns, values)
+        else:
+            results = "There is no mandatory field(s): " + str(set(columns) - set(to_dict.keys()))
+    except pymysql.InternalError:
+        return codes["code_3"]
 
     return str(results)
