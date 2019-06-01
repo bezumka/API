@@ -17,18 +17,17 @@ class BasicTests(unittest.TestCase):
     def test_is_connected(self):
         self.assertIsNotNone(self.db.cursor())
 
-
     def test_select_user_from_db(self):
         sting = ('admin', 'admin', 'Vasya', 'Pupkin')
         obj = pySql()
         result = obj.smart_query('select * from users where login = "admin"')
-        #print("TestSelectUserFromDB")
+        # print("TestSelectUserFromDB")
         self.assertEqual(result[0], sting, msg='User not found or has wrong data')
 
     def test_no_duplicates_in_db(self):
         obj = pySql()
         result = obj.smart_query('select * from users where login = "admin"')
-        #print("TestAdminUserNoDuplicates")
+        # print("TestAdminUserNoDuplicates")
         self.assertEqual(len(result), 1)
 
 
