@@ -11,7 +11,7 @@ class BaseTest(unittest.TestCase):
     def test_create_new_user_without_all_fields(self):
         response = self.app.test_client().post(
             '/create_account',
-            data=json.dumps({'login': 'asd', 'password': 'asd'}),
+            data=json.dumps({'login': 'Admin', 'password': 'Admin'}),
             content_type='application/json',
         )
         res = (response.data.decode("utf-8"))

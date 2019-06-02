@@ -30,6 +30,3 @@ class pySql:
             return self.codes["code_1"]
         except pymysql.IntegrityError:
             return self.codes["code_2"]
-
-
-
