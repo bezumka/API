@@ -9,7 +9,7 @@ class UserValidation(object):
                 return 'Error: Login can not be empty'
             elif len(login) > 15 or len(login) < 4:
                 return 'Error: Login should be more 4 or less 15 characters'
-            elif set('[~!@#$%^&*()_+{}":;\']+$').intersection(login):
+            elif set('[ ~!@#$%^&*()_+{}":;\']+$').intersection(login):
                 return 'Error: Login can not contains special characters'
             else:
                 return login
