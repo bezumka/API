@@ -23,22 +23,24 @@ def get_user_data():
     decode_data = json_obj.decode('utf-8')
     to_dict = ast.literal_eval(decode_data)
 
-    test = [{
-        'Key': 1,
-        'Friend_name': 'TestName',
-        'Last_online': '2018-03-01'},
-        {'Key': 2,
-         'Friend_name': 'TestName2',
-         'Last_online': '2018-03-01'}]
-
     if 'FirstName' in to_dict.keys():
-        query = 'select * from users where login = "' + to_dict.get('FirstName') + '"'
-        res = obj.smart_query(query)
-        result = jsonify([{"Login": ip[0],
-                           "Password": ip[1],
-                           "FirstName": ip[2],
-                           "LastName": ip[3],
-                           "Friends": test} for ip in res])
+        # query = obj.smart_query("SELECT id, CONCAT_WS(', ' , GROUP_CONCAT(first_name),"
+        #                         " GROUP_CONCAT(last_name)) AS all_friends from users where login IN "
+        #                           "(select f.friend from users u "
+        #                           "INNER JOIN friends f ON u.login = f.login WHERE f.login = %s group by first_name)", (to_dict.get('FirstName'),))
+
+        user = obj.smart_query("select * from users where login = %s", (to_dict.get('FirstName'),))
+        friends = obj.smart_query("select id, first_name, last_name from users where login in "
+                                  "(select f.friend from users u "
+                                  "INNER JOIN friends f ON u.login = f.login "
+                                  "WHERE f.login = %s)", (to_dict.get('FirstName'),))
+        friend_result = [{"FirstName": ip[0],
+                          "LastName": ip[1]} for ip in friends]
+        user_result = jsonify([{"Login": ip[0],
+                                "Password": ip[1],
+                                "FirstName": ip[2],
+                                "LastName": ip[3],
+                                "Friends": friend_result} for ip in user])
     else:
-        result = 'There is no mandatory field: FirstName'
-    return result
+        user_result = 'There is no mandatory field: FirstName'
+    return user_result

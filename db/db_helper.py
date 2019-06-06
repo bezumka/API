@@ -12,8 +12,8 @@ class pySql:
                                    database=db_list[env]['database']))
         self.cursor = self.db.cursor()
 
-    def smart_query(self, query):
-        self.cursor.execute(query)
+    def smart_query(self, query, value):
+        self.cursor.execute(query, value)
         results = [field[1:] for field in self.cursor.fetchall()]
         return results
 
