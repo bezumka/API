@@ -44,4 +44,4 @@ class pySql:
         self.cursor.callproc(procedure, value)
         results = self.cursor.fetchone()
 
-        return results
+        return results[0]

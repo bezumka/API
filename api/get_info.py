@@ -24,8 +24,9 @@ def get_user_data():
     to_dict = ast.literal_eval(decode_data)
 
     if 'FirstName' in to_dict.keys():
-        login_name = (to_dict.get('FirstName'))
-        user_result = obj.smart_query_full('call user("' + login_name + '")')
+        # login_name = (to_dict.get('FirstName'))
+        user_result = obj.call_procedure('user', ((to_dict.get('FirstName')),))
+        # user_result = obj.smart_query_full('call user("' + login_name + '")')
     else:
         user_result = 'There is no mandatory field: FirstName'
     return user_result
