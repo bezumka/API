@@ -1,4 +1,3 @@
-import ast
 import string
 import random
 
