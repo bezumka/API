@@ -17,9 +17,16 @@ class pySql:
         results = [field[1:] for field in self.cursor.fetchall()]
         return results
 
+    def smart_query_full(self, query):
+        self.cursor.execute(query)
+        result = self.cursor.fetchone()
+
+        return str(result[0])
+
     def get_column_names(self, query):
         self.cursor.execute(query)
         column_names = [column[0] for column in self.cursor.description]
+
         return column_names
 
     def insert_data_to_db(self, table, columns, values):
@@ -27,6 +34,14 @@ class pySql:
             self.cursor.execute(
                 'INSERT INTO {0} ({1}) VALUES (\'{2}\')'.format(table, ", ".join(columns), "', '".join(values)))
             self.db.commit()
+
             return self.codes["code_1"]
         except pymysql.IntegrityError:
+
             return self.codes["code_2"]
+
+    def call_procedure(self, procedure, value):
+        self.cursor.callproc(procedure, value)
+        results = self.cursor.fetchone()
+
+        return results
