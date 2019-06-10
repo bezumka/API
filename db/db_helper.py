@@ -19,9 +19,10 @@ class pySql:
 
     def smart_query_full(self, query):
         self.cursor.execute(query)
-        result = self.cursor.fetchone()
+        result = [field for field in self.cursor.fetchall()]
+        self.cursor.close()
 
-        return str(result[0])
+        return result
 
     def get_column_names(self, query):
         self.cursor.execute(query)
