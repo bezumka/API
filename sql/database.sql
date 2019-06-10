@@ -99,6 +99,24 @@ INSERT INTO `users` (`id`, `login`, `password`, `first_name`, `last_name`) VALUE
 (78, 'asd23', 'testPassword', 'admin', 'admin'),
 (79, 'qbKSARVd', '', '', '');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin`
+--
+
+CREATE TABLE IF NOT EXISTS `admin` (
+                                       `login` varchar(15) NOT NULL,
+                                       `password` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`login`, `password`) VALUES
+('admin', '21232f297a57a5a743894a0e4a801fc3');
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -8,7 +8,7 @@ import sql\database.sql to mysql
 
 Start python launcher.py
 http://[SERVER]:[PORT]/login
-Basic auth: admin\Super123
+Basic auth: admin\admin
 
 Before for use - you should get session from /login
 Header Data:
@@ -24,5 +24,5 @@ http://[SERVER]:[PORT]/create_account
 	'login': "USER_NAME",
 	'password': "USER_PASSWORD" ,
 	'first_name': "USER_FIRST_NAME",
-	'last_name1': "USER_LAST_NAME",
+	'last_name': "USER_LAST_NAME",
 }
